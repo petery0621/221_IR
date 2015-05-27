@@ -58,8 +58,10 @@ public final class WordFrequencyCounter {
 		
 		ArrayList<Frequency> fs = new ArrayList<Frequency>();
 		for (String w: words){
+			if (map.get(w) != 0){
 				fs.add(new Frequency(w, map.get(w)));
-
+				map.put(w, 0);
+			}
 			
 		}
 		
@@ -79,8 +81,9 @@ public final class WordFrequencyCounter {
 	}
 }
 
-/* Total item count: 19
-Unique item count: 15
+
+/* Total item count: 15
+Unique item count: 13
 
 please    	1
 place     	1
@@ -90,11 +93,11 @@ of        	2
 the       	1
 runtime   	1
 complexity	1
-of        	2
-your      	2
 palindrome	1
 algorithm 	1
 in        	1
 this      	1
 file      	1
+
 */
+

@@ -47,6 +47,12 @@ public final class WordFrequencyCounter {
 	 */
 	public static List<Frequency> computeWordFrequencies(List<String> words) {
 		// TODO Write body!
+		ArrayList<Frequency> fs = new ArrayList<Frequency>();
+		if (words==null || words.size()==0){
+			return fs;
+		}
+		
+		// count the frequencies 
 		HashMap<String, Integer> map = new HashMap<String, Integer>(); 
 		for (String w: words){
 			if (!map.containsKey(w)){
@@ -56,13 +62,39 @@ public final class WordFrequencyCounter {
 			}
 		}
 		
-		ArrayList<Frequency> fs = new ArrayList<Frequency>();
+		// populate the list of Frequency
 		for (String w: words){
 			if (map.get(w) != 0){
 				fs.add(new Frequency(w, map.get(w)));
 				map.put(w, 0);
+			}	
+		}
+		
+		// bubble sort 
+		for (int i=0; i<fs.size(); i++){
+			for (int j=fs.size()-1; j>i; j--){
+				Frequency f1 = fs.get(j-1);
+				Frequency f2 = fs.get(j);
+				if (f1.getFrequency() < f2.getFrequency()){
+					fs.remove(j);
+					fs.add(j-1, f2);
+//				}else if (f1.getFrequency() == f2.getFrequency()){
+//					String str1 = f1.getText(); 
+//					String str2 = f2.getText(); 
+//					int lengthShort = Math.min(str1.length(), str2.length());
+//					for (int k=0; k<lengthShort; k++){
+//						if (str1.charAt(k) > str2.charAt(k)){
+//							fs.remove(j);
+//							fs.add(j-1, f2);
+//							break;
+//						}
+//					}
+//					if (str1.length() > str2.length()){
+//						fs.remove(j);
+//						fs.add(j-1, f2);
+//					}
+				}
 			}
-			
 		}
 		
 		return fs;
@@ -85,11 +117,11 @@ public final class WordFrequencyCounter {
 /* Total item count: 15
 Unique item count: 13
 
+your      	2
+of        	2
 please    	1
 place     	1
-your      	2
 analysis  	1
-of        	2
 the       	1
 runtime   	1
 complexity	1
@@ -98,6 +130,7 @@ algorithm 	1
 in        	1
 this      	1
 file      	1
+
 
 */
 

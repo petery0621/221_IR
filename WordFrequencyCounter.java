@@ -69,30 +69,42 @@ public final class WordFrequencyCounter {
 				map.put(w, 0);
 			}	
 		}
-		
+
 		// bubble sort 
+		boolean swapped = false;
 		for (int i=0; i<fs.size(); i++){
 			for (int j=fs.size()-1; j>i; j--){
+				
 				Frequency f1 = fs.get(j-1);
 				Frequency f2 = fs.get(j);
 				if (f1.getFrequency() < f2.getFrequency()){
 					fs.remove(j);
 					fs.add(j-1, f2);
-//				}else if (f1.getFrequency() == f2.getFrequency()){
-//					String str1 = f1.getText(); 
-//					String str2 = f2.getText(); 
-//					int lengthShort = Math.min(str1.length(), str2.length());
-//					for (int k=0; k<lengthShort; k++){
-//						if (str1.charAt(k) > str2.charAt(k)){
-//							fs.remove(j);
-//							fs.add(j-1, f2);
-//							break;
-//						}
-//					}
-//					if (str1.length() > str2.length()){
-//						fs.remove(j);
-//						fs.add(j-1, f2);
-//					}
+				}else if (f1.getFrequency() == f2.getFrequency()){
+					String str1 = f1.getText(); 
+					String str2 = f2.getText(); 
+					int lengthShort = Math.min(str1.length(), str2.length());
+					// assume alphabets
+					for (int k=0; k<lengthShort; k++){
+//						if (str1.charAt(k)<='z' && str1.charAt(k)>='a' && 
+//							str2.charAt(k)<='z' && str2.charAt(k)>='a' &&	
+						if	(str1.charAt(k) < str2.charAt(k)){
+							swapped = true;
+							break;
+						}else if (str1.charAt(k) == str2.charAt(k)){
+							continue;
+						}else{						
+							fs.remove(j);
+							fs.add(j-1, f2);
+							swapped = true;
+							break;
+						}
+					}
+					if (!swapped && str1.length()>str2.length()){
+						fs.remove(j);
+						fs.add(j-1, f2);
+					}
+					swapped = false;
 				}
 			}
 		}
@@ -117,19 +129,20 @@ public final class WordFrequencyCounter {
 /* Total item count: 15
 Unique item count: 13
 
-your      	2
 of        	2
-please    	1
-place     	1
-analysis  	1
-the       	1
-runtime   	1
-complexity	1
-palindrome	1
+your      	2
 algorithm 	1
-in        	1
-this      	1
+analysis  	1
+complexity	1
 file      	1
+in        	1
+palindrome	1
+place     	1
+please    	1
+runtime   	1
+the       	1
+this      	1
+
 
 
 */
